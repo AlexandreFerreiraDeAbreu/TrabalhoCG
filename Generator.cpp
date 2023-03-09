@@ -2,6 +2,7 @@
 #include <math.h>
 #include <iostream>
 #include <fstream>
+#include <cstring>
 using namespace std;
 
 
@@ -188,15 +189,43 @@ void drawEsfera(float radius, int slices, int stacks){
 
 
 
-int main (){
+int main(int argc, char* argv[]){
 
-    drawPlano(3, 3);
-
-    drawBox(3, 3);
-
-	drawCone(3, 3, 4, 3);
-
-	drawEsfera(3,10,10);
+	if(std::strcmp(argv[1], "plano") == 0){
+		if(argc == 5){
+			drawPlano(stof(argv[2]), atoi(argv[3]));
+		}
+		else{
+			printf("Número de argumentos para desenhar o plano errado");
+		}
+	}
+	else if (std::strcmp(argv[1], "box") == 0){
+		if(argc == 5){
+			drawBox(stof(argv[2]), atoi(argv[3]));
+		}
+		else{
+			printf("Número de argumentos para desenhar o cubo errado");
+		}
+	}
+	else if (std::strcmp(argv[1], "cone") == 0){
+		if(argc == 7){
+			drawCone(stof(argv[2]), stof(argv[3]), atoi(argv[4]), atoi(argv[5]));
+		}
+		else{
+			printf("Número de argumentos para desenhar o cone errado");
+		}
+	}
+	else if (std::strcmp(argv[1], "sphere") == 0){
+		if(argc == 6){
+			drawEsfera(stof(argv[2]), atoi(argv[3]), atoi(argv[4]));
+		}
+		else{
+			printf("Número de argumentos para desenhar a esfera errado");
+		}
+	}
+	else{
+		printf("Erro nos argumentos");
+	}
 
     return 0;
 }
