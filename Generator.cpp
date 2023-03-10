@@ -6,9 +6,9 @@
 using namespace std;
 
 
-void drawPlano (float l, int d){
+void drawPlano (float l, int d, char* ficheiro){
     
-    ofstream fileP ("plano.3d", ios::trunc);
+    ofstream fileP (ficheiro, ios::trunc);
 
     float n = (l/float(d));
     float u = (l/2.0f);
@@ -30,11 +30,11 @@ void drawPlano (float l, int d){
 
 
 
-void drawBox(float l, int d){
+void drawBox(float l, int d, char* ficheiro){
 	float n = (l/float(d));
     float u = (l/2.0f);
 
-    ofstream fileB ("box.3d", ios::trunc);
+    ofstream fileB (ficheiro, ios::trunc);
 	
 	for (int j = 0; j < d; j++){
 		for (int i = 0; i < d; i++){
@@ -100,14 +100,14 @@ void drawBox(float l, int d){
 
 
 
-void drawCone(float radius, float height, int slices, int stacks) {
+void drawCone(float radius, float height, int slices, int stacks, char* ficheiro) {
 
 	float angle = 2.0f*M_PI/slices;
 	float somaAng = 0;	
 	float h = height/2;
 	int j = 0;
 
-	ofstream fileC ("cone.3d", ios::trunc);
+	ofstream fileC (ficheiro, ios::trunc);
 
 	for(int i = 0; i <= slices; i++){
 		fileC << "0 " << " 0 " << " 0" << endl;
@@ -141,7 +141,7 @@ void drawCone(float radius, float height, int slices, int stacks) {
 	fileC.close();
 }
 
-void drawEsfera(float radius, int slices, int stacks){
+void drawEsfera(float radius, int slices, int stacks, char* ficheiro){
 
 	float angleH = 2.0f*M_PI/slices;
 	float angleV = M_PI/stacks;
@@ -149,7 +149,7 @@ void drawEsfera(float radius, int slices, int stacks){
 	float somaAngV = M_PI/2;
 	int j = 0;
 
-	ofstream fileE ("esfera.3d", ios::trunc);
+	ofstream fileE (ficheiro, ios::trunc);
 
 
 	for(j= 1; j < stacks-1; j++){
@@ -193,38 +193,38 @@ int main(int argc, char* argv[]){
 
 	if(std::strcmp(argv[1], "plano") == 0){
 		if(argc == 5){
-			drawPlano(stof(argv[2]), atoi(argv[3]));
+			drawPlano(stof(argv[2]), atoi(argv[3]), argv[4]);
 		}
 		else{
-			printf("Número de argumentos para desenhar o plano errado");
+			printf("Número de argumentos para desenhar o plano errado\n");
 		}
 	}
 	else if (std::strcmp(argv[1], "box") == 0){
 		if(argc == 5){
-			drawBox(stof(argv[2]), atoi(argv[3]));
+			drawBox(stof(argv[2]), atoi(argv[3]), argv[4]);
 		}
 		else{
-			printf("Número de argumentos para desenhar o cubo errado");
+			printf("Número de argumentos para desenhar o cubo errado\n");
 		}
 	}
 	else if (std::strcmp(argv[1], "cone") == 0){
 		if(argc == 7){
-			drawCone(stof(argv[2]), stof(argv[3]), atoi(argv[4]), atoi(argv[5]));
+			drawCone(stof(argv[2]), stof(argv[3]), atoi(argv[4]), atoi(argv[5]), argv[6]);
 		}
 		else{
-			printf("Número de argumentos para desenhar o cone errado");
+			printf("Número de argumentos para desenhar o cone errado\n");
 		}
 	}
 	else if (std::strcmp(argv[1], "sphere") == 0){
 		if(argc == 6){
-			drawEsfera(stof(argv[2]), atoi(argv[3]), atoi(argv[4]));
+			drawEsfera(stof(argv[2]), atoi(argv[3]), atoi(argv[4]), argv[5]);
 		}
 		else{
-			printf("Número de argumentos para desenhar a esfera errado");
+			printf("Número de argumentos para desenhar a esfera errado\n");
 		}
 	}
 	else{
-		printf("Erro nos argumentos");
+		printf("Erro nos argumentos\n");
 	}
 
     return 0;
